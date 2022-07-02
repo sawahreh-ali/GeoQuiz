@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import java.time.LocalDate
 import kotlin.math.abs
 private const val TAG = "MainActivity"
+private const val KEY_INDEX = "index"
+private const val KEY_QUESTION_BANK = "questionBank"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var trueButton: Button
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
         setContentView(R.layout.activity_main)
+        quizViewModel.currentIndex = savedInstanceState?.getInt(KEY_INDEX, 0) ?: 0
         trueButton = findViewById(R.id.true_button)
         falseButton = findViewById(R.id.false_button)
         nextButton = findViewById(R.id.next_button)
@@ -71,6 +74,13 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause called")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.i(TAG, "onSaveInstanceState")
+        outState.putInt(KEY_INDEX, quizViewModel.currentIndex)
+
     }
 
     override fun onDestroy() {
