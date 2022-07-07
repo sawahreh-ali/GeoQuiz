@@ -23,9 +23,9 @@ class QuizViewModel(private  val savedStateHandle: SavedStateHandle): ViewModel(
     var currentIsAnswered: Boolean
         get() = questionBank[currentIndex].isAnswered
         set(value) {questionBank[currentIndex].isAnswered = value}
-    var isCheater: Boolean
-        get() = savedStateHandle.get<Boolean>(IS_CHEATER_KEY) ?: false
-        set(value) = savedStateHandle.set(IS_CHEATER_KEY, value)
+    var isCheated: Boolean
+        get() = questionBank[currentIndex].isCheated
+        set(value) {questionBank[currentIndex].isCheated = value}
     fun moveToNext() {
         currentIndex = (currentIndex + 1) % questionBank.size
     }
